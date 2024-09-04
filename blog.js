@@ -65,3 +65,43 @@ app.get('/blogs/:id', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+
+app.post('/blog', (req, res) => {
+    let data = req.body
+
+
+    let new_record = {
+        id: blogs_list.length + 1,
+        /*content: data.content,
+        author: data.author,
+        likes: data.likes,
+        views: data.views,*/
+        created_date: new Date()
+    }
+
+    blogs_list.push(new_record)
+
+    res.json({
+        message: "Blog created successfully"
+    })
+
+})
+
+app.post('/delblog/:id',(req,res)=> {
+    let id = req.params.id
+    for(delpost of blogs_list)
+    {
+        if (delpost['id']==id)
+        {
+            blogs_list.pop(id)
+        }
+    }
+    res.json({
+        message: "Blog Deleted Successfully"
+    })
+})
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
+
